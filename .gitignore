@@ -28,3 +28,8 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+
+
+
+/native_rust/target
+/native_rust/Cargo.lock
