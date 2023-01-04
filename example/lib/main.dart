@@ -15,14 +15,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late int sumResult;
-  late Future<int> sumAsyncResult;
+  final Future<String> pid = flutter_libp2p.localPeerId();
 
   @override
   void initState() {
     super.initState();
-    sumResult = flutter_libp2p.sum(1, 2);
-    sumAsyncResult = flutter_libp2p.sumAsync(3, 4);
+    flutter_libp2p.start();
   }
 
   @override
@@ -46,19 +44,14 @@ class _MyAppState extends State<MyApp> {
                   textAlign: TextAlign.center,
                 ),
                 spacerSmall,
-                Text(
-                  'sum(1, 2) = $sumResult',
-                  style: textStyle,
-                  textAlign: TextAlign.center,
-                ),
                 spacerSmall,
-                FutureBuilder<int>(
-                  future: sumAsyncResult,
-                  builder: (BuildContext context, AsyncSnapshot<int> value) {
+                FutureBuilder<String>(
+                  future: flutter_libp2p.localPeerId(),
+                  builder: (BuildContext context, AsyncSnapshot<String> value) {
                     final displayValue =
                         (value.hasData) ? value.data : 'loading';
                     return Text(
-                      'await sumAsync(3, 4) = $displayValue',
+                      '$displayValue',
                       style: textStyle,
                       textAlign: TextAlign.center,
                     );
