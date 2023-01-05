@@ -8,7 +8,7 @@ import 'package:web_socket_client/web_socket_client.dart';
 Future<void> start() async {
   api.start();
 }
-
+// Local
 Future<String> localPeerId() async {
   var ws = WebSocket(Uri.parse('ws://127.0.0.1:9001'));
   await ws.connection.firstWhere((state) => state is Connected);
