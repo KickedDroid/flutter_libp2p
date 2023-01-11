@@ -16,7 +16,11 @@ Future<void> start() async {
 Future<String> localPeerId() async {
   final wsUrl = Uri.parse('ws://localhost:9002');
   var channel = WebSocketChannel.connect(wsUrl);
-  channel.sink.add("local_peer_id");
+  var enc = cbor.encode(CborMap({
+    CborString("local_peer_id"):
+        CborMap({CborString("local_peer_id"): CborString("")})
+  }));
+  channel.sink.add(enc);
 
   String pid = "Bruh";
   StreamSubscription? s;
@@ -25,8 +29,35 @@ Future<String> localPeerId() async {
         print(msg);
         pid = msg.toString();
         channel.sink.close(status.goingAway);
-        s!.cancel();
       })
       .asFuture()
       .then((_) => pid);
+}
+
+Future<void> dial() async {
+  final wsUrl = Uri.parse('ws://localhost:9002');
+  var channel = WebSocketChannel.connect(wsUrl);
+  var enc = cbor.encode(CborMap({
+    CborString("local_peer_id"):
+        CborMap({CborString("dial_addrs"): CborString("")})
+  }));
+  channel.sink.add(enc);
+}
+
+Future<String> listeners() async {
+  final wsUrl = Uri.parse('ws://localhost:9002');
+  var channel = WebSocketChannel.connect(wsUrl);
+  var enc = cbor.encode(CborMap({CborString("listeners"): CborString("get")}));
+  channel.sink.add(enc);
+
+  String lis = "Loading";
+
+  return channel.stream
+      .listen((msg) {
+        print(msg);
+        lis = msg.toString();
+        channel.sink.close(status.goingAway);
+      })
+      .asFuture()
+      .then((_) => lis);
 }

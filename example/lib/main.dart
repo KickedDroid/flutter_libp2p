@@ -16,6 +16,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late String peer_id = "loading";
+  late String listeners = "Loafing";
 
   @override
   void initState() {
@@ -55,7 +56,13 @@ class _MyAppState extends State<MyApp> {
                   },
                   child: const Text("Click"),
                 ),
-                Text(peer_id)
+                Text(peer_id),
+                TextButton(
+                  onPressed: () async {
+                    await flutter_libp2p.dial();
+                  },
+                  child: const Text("Click"),
+                ),
               ],
             ),
           ),
