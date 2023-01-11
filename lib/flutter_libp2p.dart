@@ -1,22 +1,32 @@
 export 'flutter_libp2p.dart';
 import 'dart:async';
+import 'dart:math';
 
 import 'ffi.dart' if (dart.library.html) 'ffi_web.dart';
 import 'package:cbor/cbor.dart';
-import 'package:web_socket_client/web_socket_client.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/status.dart' as status;
+import 'dart:convert';
 
 Future<void> start() async {
   api.start();
 }
+
 // Local
 Future<String> localPeerId() async {
-  var ws = WebSocket(Uri.parse('ws://127.0.0.1:9001'));
-  await ws.connection.firstWhere((state) => state is Connected);
-  var encoded =
-      cbor.encode(CborMap({CborString("local_peer_id"): const CborBool(true)}));
-  ws.send(encoded);
+  final wsUrl = Uri.parse('ws://localhost:9002');
+  var channel = WebSocketChannel.connect(wsUrl);
+  channel.sink.add("local_peer_id");
 
-  var result = await ws.messages.firstWhere((element) => element != null);
-  ws.close();
-  return result.toString();
+  String pid = "Bruh";
+  StreamSubscription? s;
+  return channel.stream
+      .listen((msg) {
+        print(msg);
+        pid = msg.toString();
+        channel.sink.close(status.goingAway);
+        s!.cancel();
+      })
+      .asFuture()
+      .then((_) => pid);
 }

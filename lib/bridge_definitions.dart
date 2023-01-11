@@ -18,6 +18,10 @@ abstract class NativeRust {
   Future<void> start({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kStartConstMeta;
+
+  Future<bool> isValidMultiaddr({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kIsValidMultiaddrConstMeta;
 }
 
 enum Platform {

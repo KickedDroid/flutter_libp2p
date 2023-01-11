@@ -71,6 +71,23 @@ class NativeRustImpl implements NativeRust {
         argNames: [],
       );
 
+  Future<bool> isValidMultiaddr({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_is_valid_multiaddr(port_, arg0),
+      parseSuccessData: _wire2api_bool,
+      constMeta: kIsValidMultiaddrConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kIsValidMultiaddrConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "is_valid_multiaddr",
+        argNames: ["s"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -95,6 +112,11 @@ class NativeRustImpl implements NativeRust {
 
 // Section: api2wire
 
+@protected
+int api2wire_u8(int raw) {
+  return raw;
+}
+
 // Section: finalizer
 
 class NativeRustPlatform extends FlutterRustBridgeBase<NativeRustWire> {
@@ -102,6 +124,17 @@ class NativeRustPlatform extends FlutterRustBridgeBase<NativeRustWire> {
 
 // Section: api2wire
 
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_String(String raw) {
+    return api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_uint_8_list(Uint8List raw) {
+    final ans = inner.new_uint_8_list_0(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
 // Section: finalizer
 
 // Section: api_fill_to_wire
@@ -243,6 +276,38 @@ class NativeRustWire implements FlutterRustBridgeWireBase {
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>('wire_start');
   late final _wire_start = _wire_startPtr.asFunction<void Function(int)>();
 
+  void wire_is_valid_multiaddr(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_is_valid_multiaddr(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_is_valid_multiaddrPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_is_valid_multiaddr');
+  late final _wire_is_valid_multiaddr = _wire_is_valid_multiaddrPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
+    int len,
+  ) {
+    return _new_uint_8_list_0(
+      len,
+    );
+  }
+
+  late final _new_uint_8_list_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_uint_8_list> Function(
+              ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
+      .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+
   void free_WireSyncReturn(
     WireSyncReturn ptr,
   ) {
@@ -259,6 +324,13 @@ class NativeRustWire implements FlutterRustBridgeWireBase {
 }
 
 class _Dart_Handle extends ffi.Opaque {}
+
+class wire_uint_8_list extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
 
 typedef DartPostCObjectFnType = ffi.Pointer<
     ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;

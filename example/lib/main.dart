@@ -15,12 +15,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Future<String> pid = flutter_libp2p.localPeerId();
+  late String peer_id = "loading";
 
   @override
   void initState() {
     super.initState();
     flutter_libp2p.start();
+  }
+
+  Future<String> load() async {
+    var pid = await flutter_libp2p.localPeerId();
+    return pid;
   }
 
   @override
@@ -36,27 +41,21 @@ class _MyAppState extends State<MyApp> {
           child: Container(
             padding: const EdgeInsets.all(10),
             child: Column(
+              // ignore: prefer_const_constructors
               children: [
-                const Text(
-                  'This calls a native function through FFI that is shipped as source in the package. '
-                  'The native code is built as part of the Flutter Runner build.',
-                  style: textStyle,
-                  textAlign: TextAlign.center,
-                ),
                 spacerSmall,
                 spacerSmall,
-                FutureBuilder<String>(
-                  future: flutter_libp2p.localPeerId(),
-                  builder: (BuildContext context, AsyncSnapshot<String> value) {
-                    final displayValue =
-                        (value.hasData) ? value.data : 'loading';
-                    return Text(
-                      '$displayValue',
-                      style: textStyle,
-                      textAlign: TextAlign.center,
-                    );
+                //
+                TextButton(
+                  onPressed: () async {
+                    var res = await flutter_libp2p.localPeerId();
+                    setState(() {
+                      peer_id = res;
+                    });
                   },
+                  child: const Text("Click"),
                 ),
+                Text(peer_id)
               ],
             ),
           ),

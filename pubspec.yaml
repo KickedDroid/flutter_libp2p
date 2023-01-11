@@ -15,7 +15,7 @@ dependencies:
   flutter_rust_bridge: ^1.45.0
   build_runner: 
   cbor: ^5.1.2
-  web_socket_client: ^0.1.0-dev.1
+  web_socket_channel: ^2.3.0
 
 dev_dependencies:
   ffigen: ^7.2.4
