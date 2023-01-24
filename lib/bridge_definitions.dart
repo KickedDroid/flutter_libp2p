@@ -19,6 +19,14 @@ abstract class NativeRust {
 
   FlutterRustBridgeTaskConstMeta get kStartConstMeta;
 
+  Stream<String> eventStream({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kEventStreamConstMeta;
+
+  Future<String> generateCid({required Uint8List data, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGenerateCidConstMeta;
+
   Future<bool> isValidMultiaddr({required String s, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kIsValidMultiaddrConstMeta;

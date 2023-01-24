@@ -7,57 +7,54 @@ import 'package:cbor/cbor.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'dart:convert';
+import 'package:network_info_plus/network_info_plus.dart';
+
+final wsUrl = Uri.parse('ws://localhost:9002');
+var channel = WebSocketChannel.connect(wsUrl);
 
 Future<void> start() async {
   api.start();
 }
 
+Future<String> get_ip() async {
+  final info = NetworkInfo();
+  var wifiIP = await info.getWifiIP();
+  print(wifiIP);
+  return wifiIP.toString();
+}
+
 // Local
 Future<String> localPeerId() async {
-  final wsUrl = Uri.parse('ws://localhost:9002');
-  var channel = WebSocketChannel.connect(wsUrl);
   var enc = cbor.encode(CborMap({
     CborString("local_peer_id"):
         CborMap({CborString("local_peer_id"): CborString("")})
   }));
   channel.sink.add(enc);
-
   String pid = "Bruh";
-  StreamSubscription? s;
   return channel.stream
-      .listen((msg) {
-        print(msg);
-        pid = msg.toString();
-        channel.sink.close(status.goingAway);
-      })
-      .asFuture()
-      .then((_) => pid);
+      .asBroadcastStream()
+      .firstWhere((element) => element != null)
+      .then((value) => {
+            print(value),
+            pid = value.toString(),
+          })
+      .then((value) => pid);
 }
 
-Future<void> dial() async {
+Future<void> dial(List<String> toDial) async {
   final wsUrl = Uri.parse('ws://localhost:9002');
   var channel = WebSocketChannel.connect(wsUrl);
+  CborList addrs = CborList([]);
+  for (var e in toDial) {
+    addrs.add(CborString(e));
+  }
+
   var enc = cbor.encode(CborMap({
-    CborString("local_peer_id"):
-        CborMap({CborString("dial_addrs"): CborString("")})
+    CborString("local_peer_id"): CborMap({CborString("dial_addrs"): addrs})
   }));
   channel.sink.add(enc);
 }
 
-Future<String> listeners() async {
-  final wsUrl = Uri.parse('ws://localhost:9002');
-  var channel = WebSocketChannel.connect(wsUrl);
-  var enc = cbor.encode(CborMap({CborString("listeners"): CborString("get")}));
-  channel.sink.add(enc);
-
-  String lis = "Loading";
-
-  return channel.stream
-      .listen((msg) {
-        print(msg);
-        lis = msg.toString();
-        channel.sink.close(status.goingAway);
-      })
-      .asFuture()
-      .then((_) => lis);
+Future<Stream> events() async {
+  return api.eventStream();
 }

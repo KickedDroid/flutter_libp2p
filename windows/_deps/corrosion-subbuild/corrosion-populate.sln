@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ALL_BUILD", "ALL_BUILD.vcxproj", "{8075CAE6-0BA1-3394-A3FC-D96919F1D2E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1840BF01-0366-3D99-B70C-38C7B4D23D12} = {1840BF01-0366-3D99-B70C-38C7B4D23D12}
+		{E86F2619-554F-3780-AFBA-D9B2371BCFD6} = {E86F2619-554F-3780-AFBA-D9B2371BCFD6}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZERO_CHECK", "ZERO_CHECK.vcxproj", "{1840BF01-0366-3D99-B70C-38C7B4D23D12}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "corrosion-populate", "corrosion-populate.vcxproj", "{E86F2619-554F-3780-AFBA-D9B2371BCFD6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1840BF01-0366-3D99-B70C-38C7B4D23D12} = {1840BF01-0366-3D99-B70C-38C7B4D23D12}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8075CAE6-0BA1-3394-A3FC-D96919F1D2E9}.Debug|x64.ActiveCfg = Debug|x64
+		{1840BF01-0366-3D99-B70C-38C7B4D23D12}.Debug|x64.ActiveCfg = Debug|x64
+		{1840BF01-0366-3D99-B70C-38C7B4D23D12}.Debug|x64.Build.0 = Debug|x64
+		{E86F2619-554F-3780-AFBA-D9B2371BCFD6}.Debug|x64.ActiveCfg = Debug|x64
+		{E86F2619-554F-3780-AFBA-D9B2371BCFD6}.Debug|x64.Build.0 = Debug|x64
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {002BEECE-6599-39E3-A38E-531E39383B43}
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asmai\Documents\Programming\flutter_libp2p\windows\_deps\corrosion-subbuild\CMakeFiles\b3badcf12f16d8ba97ff8133f518c0e8\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9E098DCA-973C-33C9-9FD8-7569D89D432C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

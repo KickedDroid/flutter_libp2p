@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/corrosion-populate"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/b3badcf12f16d8ba97ff8133f518c0e8/corrosion-populate.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/33eeb8a8f5a8bcc2996f54f850f41855/corrosion-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/asmai/Documents/Programming/flutter_libp2p/windows/_deps/corrosion-subbuild/CMakeFiles/c8bb5da464a535c9cb45da04577c3adf/corrosion-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"corrosion-populate"
+		],
+		"name" : "corrosion-populate"
+	}
+}

@@ -16,6 +16,7 @@ dependencies:
   build_runner: 
   cbor: ^5.1.2
   web_socket_channel: ^2.3.0
+  network_info_plus: ^3.0.1
 
 dev_dependencies:
   ffigen: ^7.2.4

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_libp2p/ffi.dart';
 import 'dart:async';
 
 import 'package:flutter_libp2p/flutter_libp2p.dart' as flutter_libp2p;
@@ -18,15 +19,23 @@ class _MyAppState extends State<MyApp> {
   late String peer_id = "loading";
   late String listeners = "Loafing";
 
+  late Stream events;
+
+  List<String> toDial = [
+    "/ip4/172.30.144.1/tcp/42006/p2p/12D3KooWDk4Dez7KeWi5Z6JMVgQdEateaBY26yBpasdUedn29GaA"
+  ];
+
   @override
   void initState() {
     super.initState();
     flutter_libp2p.start();
   }
 
-  Future<String> load() async {
-    var pid = await flutter_libp2p.localPeerId();
-    return pid;
+  Future<void> load() async {
+    var stream = await flutter_libp2p.events();
+    stream.listen((event) {
+      print(event);
+    });
   }
 
   @override
@@ -54,15 +63,29 @@ class _MyAppState extends State<MyApp> {
                       peer_id = res;
                     });
                   },
-                  child: const Text("Click"),
+                  child: const Text("Get pid"),
                 ),
                 Text(peer_id),
                 TextButton(
                   onPressed: () async {
-                    await flutter_libp2p.dial();
+                    await flutter_libp2p.dial(toDial);
                   },
-                  child: const Text("Click"),
+                  child: const Text("Dial"),
                 ),
+                StreamBuilder(
+                    // For when there are results over time
+                    stream: api.eventStream(),
+                    builder: (context, data) {
+                      if (data.hasData) {
+                        return Column(
+                          children: [
+                            Text("Message From Rust: $data"),
+                          ],
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    }),
               ],
             ),
           ),

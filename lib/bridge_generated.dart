@@ -71,6 +71,39 @@ class NativeRustImpl implements NativeRust {
         argNames: [],
       );
 
+  Stream<String> eventStream({dynamic hint}) {
+    return _platform.executeStream(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_event_stream(port_),
+      parseSuccessData: _wire2api_String,
+      constMeta: kEventStreamConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kEventStreamConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "event_stream",
+        argNames: [],
+      );
+
+  Future<String> generateCid({required Uint8List data, dynamic hint}) {
+    var arg0 = _platform.api2wire_uint_8_list(data);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_generate_cid(port_, arg0),
+      parseSuccessData: _wire2api_String,
+      constMeta: kGenerateCidConstMeta,
+      argValues: [data],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGenerateCidConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "generate_cid",
+        argNames: ["data"],
+      );
+
   Future<bool> isValidMultiaddr({required String s, dynamic hint}) {
     var arg0 = _platform.api2wire_String(s);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -93,6 +126,10 @@ class NativeRustImpl implements NativeRust {
   }
 // Section: wire2api
 
+  String _wire2api_String(dynamic raw) {
+    return raw as String;
+  }
+
   bool _wire2api_bool(dynamic raw) {
     return raw as bool;
   }
@@ -103,6 +140,14 @@ class NativeRustImpl implements NativeRust {
 
   Platform _wire2api_platform(dynamic raw) {
     return Platform.values[raw];
+  }
+
+  int _wire2api_u8(dynamic raw) {
+    return raw as int;
+  }
+
+  Uint8List _wire2api_uint_8_list(dynamic raw) {
+    return raw as Uint8List;
   }
 
   void _wire2api_unit(dynamic raw) {
@@ -275,6 +320,37 @@ class NativeRustWire implements FlutterRustBridgeWireBase {
   late final _wire_startPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>('wire_start');
   late final _wire_start = _wire_startPtr.asFunction<void Function(int)>();
+
+  void wire_event_stream(
+    int port_,
+  ) {
+    return _wire_event_stream(
+      port_,
+    );
+  }
+
+  late final _wire_event_streamPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_event_stream');
+  late final _wire_event_stream =
+      _wire_event_streamPtr.asFunction<void Function(int)>();
+
+  void wire_generate_cid(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> data,
+  ) {
+    return _wire_generate_cid(
+      port_,
+      data,
+    );
+  }
+
+  late final _wire_generate_cidPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_generate_cid');
+  late final _wire_generate_cid = _wire_generate_cidPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_is_valid_multiaddr(
     int port_,
