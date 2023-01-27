@@ -55,19 +55,19 @@ class NativeRustImpl implements NativeRust {
         argNames: [],
       );
 
-  Future<void> start({dynamic hint}) {
+  Future<void> startListening({dynamic hint}) {
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_start(port_),
+      callFfi: (port_) => _platform.inner.wire_start_listening(port_),
       parseSuccessData: _wire2api_unit,
-      constMeta: kStartConstMeta,
+      constMeta: kStartListeningConstMeta,
       argValues: [],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kStartConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kStartListeningConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "start",
+        debugName: "start_listening",
         argNames: [],
       );
 
@@ -309,17 +309,19 @@ class NativeRustWire implements FlutterRustBridgeWireBase {
   late final _wire_rust_release_mode =
       _wire_rust_release_modePtr.asFunction<void Function(int)>();
 
-  void wire_start(
+  void wire_start_listening(
     int port_,
   ) {
-    return _wire_start(
+    return _wire_start_listening(
       port_,
     );
   }
 
-  late final _wire_startPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>('wire_start');
-  late final _wire_start = _wire_startPtr.asFunction<void Function(int)>();
+  late final _wire_start_listeningPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_start_listening');
+  late final _wire_start_listening =
+      _wire_start_listeningPtr.asFunction<void Function(int)>();
 
   void wire_event_stream(
     int port_,

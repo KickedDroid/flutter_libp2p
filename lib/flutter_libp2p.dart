@@ -12,10 +12,12 @@ import 'package:network_info_plus/network_info_plus.dart';
 final wsUrl = Uri.parse('ws://localhost:9002');
 var channel = WebSocketChannel.connect(wsUrl);
 
-Future<void> start() async {
-  api.start();
+/// This future spawns a libp2p-rust node listening on ws:0.0.0.0:9002
+Future<void> spawnNode() async {
+  api.startListening();
 }
 
+/// Misc. get IP function used to get current device IP, TODO: change to match platform
 Future<String> get_ip() async {
   final info = NetworkInfo();
   var wifiIP = await info.getWifiIP();
@@ -23,7 +25,7 @@ Future<String> get_ip() async {
   return wifiIP.toString();
 }
 
-// Local
+/// Get the local peer id using a ws connection to the native rust
 Future<String> localPeerId() async {
   var enc = cbor.encode(CborMap({
     CborString("local_peer_id"):

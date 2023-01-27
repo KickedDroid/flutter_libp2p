@@ -19,16 +19,16 @@ class _MyAppState extends State<MyApp> {
   late String peer_id = "loading";
   late String listeners = "Loafing";
 
-  late Stream events;
-
   List<String> toDial = [
     "/ip4/172.30.144.1/tcp/42006/p2p/12D3KooWDk4Dez7KeWi5Z6JMVgQdEateaBY26yBpasdUedn29GaA"
   ];
 
+  List<String> events = [];
+
   @override
   void initState() {
     super.initState();
-    flutter_libp2p.start();
+    flutter_libp2p.spawnNode();
   }
 
   Future<void> load() async {
@@ -77,9 +77,10 @@ class _MyAppState extends State<MyApp> {
                     stream: api.eventStream(),
                     builder: (context, data) {
                       if (data.hasData) {
+                        events.add(data.data.toString());
                         return Column(
                           children: [
-                            Text("Message From Rust: $data"),
+                            Text("$events"),
                           ],
                         );
                       } else {

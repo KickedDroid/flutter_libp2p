@@ -15,9 +15,9 @@ abstract class NativeRust {
 
   FlutterRustBridgeTaskConstMeta get kRustReleaseModeConstMeta;
 
-  Future<void> start({dynamic hint});
+  Future<void> startListening({dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kStartConstMeta;
+  FlutterRustBridgeTaskConstMeta get kStartListeningConstMeta;
 
   Stream<String> eventStream({dynamic hint});
 
