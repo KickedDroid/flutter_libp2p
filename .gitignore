@@ -33,3 +33,5 @@ build/
 
 /native_rust/target
 /native_rust/Cargo.lock
+/example
+
