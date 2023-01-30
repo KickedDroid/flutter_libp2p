@@ -14,7 +14,11 @@ flutter_libp2p.spawnNode();
 ````
 Listen to Swarm events
 ````Dart
-await flutter_libp2p.events();
+EventBus swarmEvents = await flutter_libp2p.events();
+swarmEvents.on<ConnectionEstablished>().listen((event) {
+  //Do something
+  print(event.peerID);
+});
 ````
 
 To use in your flutter app you can call `flutter_libp2p.spawnNode()` in the initState method in main.dart like so 
